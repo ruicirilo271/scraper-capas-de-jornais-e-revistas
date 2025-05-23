@@ -1,0 +1,1 @@
+# scraper-capas-de-jornais-e-revistas
