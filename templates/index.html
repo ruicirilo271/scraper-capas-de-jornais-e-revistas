@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <title>Capas de Jornais</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0; padding: 20px;
+            text-align: center;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .img-container {
+            border: 3px solid #4a90e2;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+        .img-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 16px;
+            color: white;
+            background-color: #4a90e2;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .pagination a.disabled {
+            background-color: #ccc;
+            pointer-events: none;
+            cursor: default;
+        }
+        .pagination a:hover:not(.disabled) {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Capas de Jornais e Revistas(Página {{ page }} de {{ total_pages }})</h1>
+    <div class="gallery">
+        {% for img in imagens %}
+        <div class="img-container" onclick="window.open('{{ base_url }}{{ img }}', '_blank')">
+            <img src="{{ base_url }}{{ img }}" alt="Capa {{ img }}" />
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="/?page={{ page - 1 }}">Anterior</a>
+        {% else %}
+            <a class="disabled">Anterior</a>
+        {% endif %}
+        {% if page < total_pages %}
+            <a href="/?page={{ page + 1 }}">Próxima</a>
+        {% else %}
+            <a class="disabled">Próxima</a>
+        {% endif %}
+    </div>
+</body>
+</html>
